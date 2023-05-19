@@ -1,8 +1,13 @@
 # Niwa
 
-TODO: Delete this and the text below, and describe your gem
+Niwa is a new documentation tool for Ruby. It stands for "New, Integrated, Working Annotations".
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/niwa`. To experiment with that code, run `bin/console` for an interactive prompt.
+Currently nothing is implemented, but here's some concepts.
+
+- Data Source: a layer close to source code, such as code itself, comment, test code and so on
+- Handler: a module to convert data source into an internal, unified data structure
+- Internal Data Structure (IDS): a JSON-convertable object representing documentation
+- Representation: a final document such as HTML document
 
 ## Installation
 
