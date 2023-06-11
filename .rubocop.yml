@@ -1,13 +1,51 @@
+---
+
+inherit_gem:
+  rubocop-gem_dev: 'config/rubocop.yml'
+
+inherit_mode:
+  merge:
+    - Exclude
+
+require:
+  - rubocop-md
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rake
+
 AllCops:
-  TargetRubyVersion: 2.6
+  Exclude:
+    - 'Rakefile'
+    - 'niwa.gemspec'
+    - 'test/**/*'
+  NewCops: enable
+  EnabledByDefault: true
+  TargetRubyVersion: 3.0
 
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
+Bundler/GemComment:
+  Enabled: false
 
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
-Layout/LineLength:
-  Max: 120
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+
+# This is temporary fix that I believe should be in core
+Lint/ConstantResolution:
+  Ignore:
+    - 'ARGV'
+    - 'ARGF'
+
+# Putting extra empty line is not valuable in test
+# We prefer shorter test code
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+
+# I know what I do :)
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
+
+# There are so many cases we just want `if` expression!
+Style/MissingElse:
+  EnforcedStyle: case
