@@ -2,7 +2,7 @@
 
 Niwa is a new documentation tool for Ruby. It stands for "New, Integrated, Working Annotations".
 
-Currently nothing is implemented, but here's some concepts.
+Currently nothing is implemented, but here are some concepts.
 
 - Data Source: a layer close to source code, such as code itself, comment, test code and so on
 - Handler: a module to convert data source into an internal, unified data structure
