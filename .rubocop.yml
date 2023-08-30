@@ -42,6 +42,11 @@ Lint/ConstantResolution:
 Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
 
+Style/ConstantVisibility:
+  Exclude:
+    - 'lib/niwa/version.rb'
+    - 'test/**/*.rb'
+
 # I know what I do :)
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false

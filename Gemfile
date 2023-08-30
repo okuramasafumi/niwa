@@ -15,3 +15,8 @@ gem 'rubocop-md'
 gem 'rubocop-minitest'
 gem 'rubocop-performance'
 gem 'rubocop-rake'
+
+gem 'rbs'
+gem 'syntax_tree'
+gem 'tree_support'
+gem 'yard'
