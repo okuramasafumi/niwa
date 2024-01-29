@@ -16,6 +16,8 @@ gem 'rubocop-minitest'
 gem 'rubocop-performance'
 gem 'rubocop-rake'
 
+gem 'ruby-lsp', require: false
+
 gem 'rbs'
 gem 'syntax_tree'
 gem 'tree_support'
