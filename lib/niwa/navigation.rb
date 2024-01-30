@@ -41,7 +41,7 @@ module Niwa
 
     def initialize(registry)
       @registry = registry
-      @root_node = ::Node.new(nil)
+      @root_node = ::Niwa::Navigation::Node.new(nil)
     end
 
     # Render the navigation
@@ -63,11 +63,11 @@ module Niwa
       namespaces.each.with_index(1) do |name, idx|
         node = target.children.find { |c| c.item.klass == name }
         if node.nil?
-          node = ::Node.new(target, [], ::Entity.new(klass: name, name: nil))
+          node = ::Niwa::Navigation::Node.new(target, [], ::Niwa::Entity.new(klass: name, name: nil))
           target.children << node
         end
         target = node
-        target.children << ::Node.new(target, [], entity) if idx == namespaces.size
+        target.children << ::Niwa::Navigation::Node.new(target, [], entity) if idx == namespaces.size
         target
       end
     end
