@@ -22,7 +22,7 @@ module Niwa
   end
 
   # Processes files with registered plugins
-  def self.process(filenames)
+  def self.process(filenames, output: nil)
     result = @plugins.each_with_object([]) do |plugin, data|
       items = plugin.handle_source(filenames)
       data << items
@@ -30,7 +30,7 @@ module Niwa
 
     registry = registry_from(result)
 
-    ::Niwa::ViewContext.new(registry).render(active_html_plugin.template)
+    ::Niwa::ViewContext.new(registry, output_path: output).render(active_html_plugin.template)
   end
 
   # A mechanism to change HTML plugin
