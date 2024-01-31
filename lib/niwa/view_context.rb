@@ -13,15 +13,16 @@ module Niwa
 
     attr_reader :registry, :navigation
 
-    def initialize(registry)
+    def initialize(registry, output_path: 'result.html')
       @registry = registry
+      @output_path = output_path
       @navigation = navigation_from(registry)
     end
 
     # Render HTML file
     # `sample.html` is a temporary value
     def render(template)
-      ::File.write('sample.html', ::ERB.new(template).result(binding))
+      ::File.write(@output_path, ::ERB.new(template).result(binding))
     end
 
     private
