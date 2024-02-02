@@ -22,7 +22,7 @@ module Niwa
   end
 
   # Processes files with registered plugins
-  def self.process(filenames, output: nil)
+  def self.process(filenames, output: 'result.html')
     result = @plugins.each_with_object([]) do |plugin, data|
       items = plugin.handle_source(filenames)
       data << items
