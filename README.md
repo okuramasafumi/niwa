@@ -23,13 +23,13 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 The main usage is `niwa` executable. 
 
-```
+```sh
 niwa foo.rb bar.rb
 ```
 
 This outputs the result to `result.html` by default. To change the output file, you can give `-o` option.
 
-```
+```sh
 niwa foo.rb bar.rb -o my_result.html
 ```
 
