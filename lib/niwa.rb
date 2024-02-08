@@ -30,13 +30,22 @@ module Niwa
 
     registry = registry_from(result)
 
-    ::Niwa::ViewContext.new(registry, output_path: output).render(active_html_plugin.template)
+    ::Niwa::ViewContext.new(registry, output_path: output).render(output_plugin_for(output).template)
   end
 
-  # A mechanism to change HTML plugin
-  # Currently it's just a stub
-  def self.active_html_plugin
-    ::Niwa::Plugins::DefaultTemplate
+  # A mechanism to change output plugin
+  def self.output_plugin_for(output)
+    ext = ::File.extname(output).tr('.', '')
+    case ext
+    when 'html'
+      ::Niwa::Plugins::DefaultTemplate
+    when 'md', 'markdown'
+      require_relative 'niwa/plugins/markdown_template'
+      ::Niwa::Plugins::MarkdownTemplate
+    # We'll add more output plugins soon
+    else
+      raise ::Niwa::Error, "Unknown output format: #{ext}"
+    end
   end
 
   # This should be a private method
