@@ -9,7 +9,7 @@ module Niwa
     module_function
 
     # Temporary implementation
-    def run(argv)
+    def run(argv) # rubocop:disable Metrics/MethodLength
       options = {}
 
       ::OptionParser.new do |opts|
@@ -18,10 +18,12 @@ module Niwa
         opts.on('-o', '--output FILE', 'Output file') do |file|
           options[:output] = file
         end
+
+        opts.on('--plugins foo,bar', ::Array, 'Plugins') do |comma_separated_plugin_names|
+          options[:plugins] = comma_separated_plugin_names
+        end
       end.parse! # rubocop:disable Style/MethodCalledOnDoEndBlock
 
-      ::Niwa.plugin(::Niwa::Plugins::YARD)
-      ::Niwa.plugin(::Niwa::Plugins::RBS)
       ::Niwa.process(argv, **options)
     end
   end
