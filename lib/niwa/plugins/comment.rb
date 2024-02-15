@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../plugin'
+require_relative '../source_plugin'
 require 'syntax_tree'
 
 module Niwa
@@ -12,7 +12,7 @@ module Niwa
 
         # rubocop:disable Metrics/MethodLength
         def included(base)
-          base.include(::Niwa::Plugin)
+          base.include(::Niwa::SourcePlugin)
           base.class_eval do
             rb!
 

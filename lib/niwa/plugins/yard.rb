@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'yard'
-require_relative '../plugin'
+require_relative '../source_plugin'
 
 module Niwa
   module Plugins

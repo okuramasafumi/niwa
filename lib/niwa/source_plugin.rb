@@ -2,12 +2,12 @@
 
 module Niwa
   # Base plugin module
-  module Plugin
+  module SourcePlugin
     class << self
       private
 
       def included(base)
-        base.extend(::Niwa::Plugin::ClassMethods)
+        base.extend(::Niwa::SourcePlugin::ClassMethods)
         # base.include(InstanceMethods)
       end
     end
