@@ -21,7 +21,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-The main usage is `niwa` executable. 
+The main usage is `niwa` executable.
 
 ```sh
 niwa foo.rb bar.rb
