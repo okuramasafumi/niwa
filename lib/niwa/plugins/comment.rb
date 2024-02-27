@@ -25,8 +25,8 @@ module Niwa
             end
 
             # Get visitor object for current plugin
-            def self.visitor
-              @visitor ||= ::Object.const_get("#{name}::Visitor").new
+            def visitor
+              @visitor ||= ::Object.const_get("#{self.class.name}::Visitor").new
             end
           end
         end

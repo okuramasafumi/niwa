@@ -7,13 +7,16 @@ module Niwa
       private
 
       def included(base)
+        base.include(::Niwa::SourcePlugin::InstanceMethods)
         base.extend(::Niwa::SourcePlugin::ClassMethods)
-        # base.include(InstanceMethods)
+        base.define_method(:initialize) do |opts|
+          @opts = opts
+        end
       end
     end
 
-    # Class methods for plugin
-    module ClassMethods
+    # Methods for plugin
+    module InstanceMethods
       # Dummy implementation
       def filter_files(filenames)
         filenames
@@ -21,14 +24,12 @@ module Niwa
 
       # Handle source files
       def handle_source(filenames)
-        filter_files(filenames).flat_map(&@source_handler)
+        filter_files(filenames).flat_map(&method(:source_handler))
       end
+    end
 
-      # Define source handler that's called inside `handle_source` method
-      def define_source_handler(&block)
-        @source_handler = block
-      end
-
+    # DSL
+    module ClassMethods
       # Shortcut to filter rb files
       def rb!
         define_file_filter do |filenames|
@@ -39,6 +40,11 @@ module Niwa
       # DSL to define file filter
       def define_file_filter(&block)
         define_method(:filter_files, &block)
+      end
+
+      # Define source handler that's called inside `handle_source` method
+      def define_source_handler(&block)
+        define_method(:source_handler, &block)
       end
     end
   end

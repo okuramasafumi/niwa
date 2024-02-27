@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+using(::Module.new do
+  refine(::String) do
+    # We need this method here to place it with `upcase`
+    def camelize
+      split('_').map(&:capitalize).join
+    end
+  end
+end)
+
 require_relative 'niwa/version'
 require_relative 'niwa/entity'
 require_relative 'niwa/view_context'
@@ -17,7 +26,7 @@ module Niwa
 
   # Registers a plugin
   # Currently `mod` should be a module
-  def self.plugin(mod_or_name)
+  def self.plugin(mod_or_name, opts = {})
     mod = case mod_or_name
           when ::Module
             require_relative "niwa/plugins/#{mod_or_name.name.split('::').last.downcase}"
@@ -27,7 +36,7 @@ module Niwa
           else
             raise ::Niwa::Error, "Unknown plugin type: #{mod_or_name.class}"
           end
-    @plugins << mod
+    @plugins << mod.new(opts)
   end
 
   # Get a plugin class from its name
@@ -35,9 +44,10 @@ module Niwa
     name = name.to_s
     # TODO: Configurable base path
     require_relative "niwa/plugins/#{name.downcase}"
-    name_variants = [name.capitalize, name.upcase]
-    correct_name = name_variants.find { |n| ::Niwa::Plugins.const_defined?(n) }
-    ::Niwa::Plugins.const_get(correct_name)
+    name_variants = [:camelize, :upcase]
+    name_variants.each do |n|
+      break ::Niwa::Plugins.const_get(name.__send__(n)) if ::Niwa::Plugins.const_defined?(name.__send__(n))
+    end
   end
 
   # Processes files with registered plugins
