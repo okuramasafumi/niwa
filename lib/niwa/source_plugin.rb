@@ -9,14 +9,15 @@ module Niwa
       def included(base)
         base.include(::Niwa::SourcePlugin::InstanceMethods)
         base.extend(::Niwa::SourcePlugin::ClassMethods)
-        base.define_method(:initialize) do |opts|
-          @opts = opts
-        end
       end
     end
 
     # Methods for plugin
     module InstanceMethods
+      def initialize(opts)
+        @opts = opts
+      end
+
       # Dummy implementation
       def filter_files(filenames)
         filenames
